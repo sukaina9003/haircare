@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Small Cart Icon</title>
+<style>
+body {
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.cart-icon {
+  width: 42px;     /* icon size */
+  height: 42px;
+  border: 2px solid rgb(255, 255, 255);   /* outer black outline */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(0, 0, 0);          /* inside white */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cart-icon:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.cart-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: rgb(255, 255, 255);  /* cart shape color */
+}
+</style>
+</head>
+<body>
+
+<!-- Small Cart Icon -->
+<div class="cart-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7 18c-1.104 0-1.99.896-1.99 2S5.896 22 7 22s2-.896 2-2-.896-2-2-2zm10 0c-1.104 
+             0-1.99.896-1.99 2S15.896 22 17 22s2-.896 2-2-.896-2-2-2zM7.334 6l.664 3h8.605l1.776-3H7.334zM6 
+             4h13l-3 5H9l-1 5h9a1 1 0 0 1 0 2H8a1 1 0 0 1-.98-.804L5.24 4H2V2h4a1 1 0 0 1 .98.804L6 4z"/>
+  </svg>
+</div>
+
+</body>
+</html>

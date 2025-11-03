@@ -1,0 +1,478 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  
+
+body {
+  background-color: #000;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 15px rgba(255,255,255,0.05);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #000;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+/* Banner Section */
+.banner {
+  height: 80vh;
+  background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(10,10,10,0.8)), url('000.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 2s ease;
+}
+
+.banner-content h1 {
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 0 0 20px #fff;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.banner-content p {
+  font-size: 1.2rem;
+  margin: 15px 0 30px;
+  color: #f5f5f5;
+}
+
+.btn {
+  background: #fff;
+  color: #000;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  transform: scale(1.05);
+}
+
+/* Comparison Section */
+ .comparisons {
+  padding: 60px 10%;
+  text-align: center;
+}
+.comparisons h2 {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  text-shadow: 0 0 15px rgba(255,255,255,0.3);
+  text-align: center;
+}
+.comparison-table {
+  width: 95%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 0 25px rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+.comparison-table div[role="row"] {
+  display: flex;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.3s;
+}
+.comparison-table div[role="row"]:first-child {
+  background: #fff;
+  color: #000;
+  font-weight: 700;
+}
+.comparison-table div[role="row"]:hover:not(:first-child) {
+  background: rgba(255,255,255,0.1);
+}
+.comparison-table div[role="row"] > div {
+  flex: 1;
+  padding: 18px 25px;
+  text-align: center;
+}
+.checkmark {
+  color: #66ff99;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+.crossmark {
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+/* Testimonials */
+.testimonials {
+  padding: 60px 10%;
+  text-align: center;
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.testimonials h2 {
+  color: #fff;
+  margin-bottom: 40px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.testimonial {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 700px;
+  transition: transform 0.3s ease, background 0.3s;
+}
+
+.testimonial:hover {
+  transform: scale(1.03);
+  background: rgba(255,255,255,0.1);
+}
+
+.testimonial p {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+/* About */
+.about {
+  background: #000;
+  padding: 60px 10%;
+  text-align: center;
+}
+
+.about h2 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.about p {
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Footer */
+footer {
+  background: #111;
+  padding: 50px 10% 30px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-box h3 {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.footer-box ul {
+  list-style: none;
+}
+
+.footer-box ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-box ul li a:hover {
+  color: #fff;
+}
+
+.footer-box input {
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.footer-box button {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.footer-box button:hover {
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  display: inline-grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #fff;
+  color: #000000;
+  transition: all 0.3s;
+}
+
+.social-icons a:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes glow {
+  from { text-shadow: 0 0 10px #aaa; }
+  to { text-shadow: 0 0 30px #fff; }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+    <nav class="navbar">
+      <div class="logo"><img src="./logo_for_website-removebg-preview.png" alt="" height="50px" width="30px">HairCare Hub</div>
+      <ul class="nav-links">
+        <li><a href="http://127.0.0.1:5500/index.html">Home</a></li>
+        <li><a href="http://127.0.0.1:5500/treatmentindex.html">Treatments</a></li>
+        <li><a href="http://127.0.0.1:5500/ramidieindex.html">Remedies</a></li>
+        <li><a href="http://127.0.0.1:5500/equipmetindex.html">Equipments</a></li>
+        <li><a href="http://127.0.0.1:5500/productindex.html">Products</a></li>
+        <li><a href="http://127.0.0.1:5500/Galleryindex.html">Gallery</a></li>
+        <li><a href="http://127.0.0.1:5500/latestindex.html">Latest</a></li>
+        <li><a href="http://127.0.0.1:5500/contectindex.html">Contact</a></li>
+        
+         <!-- Outline avatar (24x24) -->
+<a href="http://127.0.0.1:5500/loginlindex.html"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" role="img">
+  <circle cx="12" cy="7.2" r="3.2" />
+  <path d="M4.5 20c0-3.1 2.9-5.6 7.5-5.6s7.5 2.5 7.5 5.6" />
+</svg></a>
+
+      </ul>
+    </nav>
+  </header>
+
+   
+  <section class="banner">
+    <div class="banner-content">
+      <h1>Style That Defines You</h1>
+      <p>Transform your hair with professional care and modern styling</p>
+      <a href="http://127.0.0.1:5500/book.html" class="btn">Book Appointment</a>
+    </div>
+  </section>
+
+   <section class="comparisons" aria-labelledby="comparisons-heading">
+    <h2 id="comparisons-heading">Service Comparison</h2>
+  
+    <div class="comparison-table" role="table" aria-label="Comparison of Hair Salon Services">
+      <div role="rowgroup">
+        <div role="row">
+          <div role="columnheader">Features</div>
+          <div role="columnheader">Basic Haircut</div>
+          <div role="columnheader">Styling</div>
+          <div role="columnheader">Coloring</div>
+          <div role="columnheader">Hair Treatment</div>
+        </div>
+      </div>
+  
+      <div role="rowgroup">
+        <div role="row">
+          <div role="cell">Price</div>
+          <div role="cell">$25</div>
+          <div role="cell">$40</div>
+          <div role="cell">$70</div>
+          <div role="cell">$50</div>
+        </div>
+        <div role="row">
+          <div role="cell">Duration</div>
+          <div role="cell">30 mins</div>
+          <div role="cell">45 mins</div>
+          <div role="cell">90 mins</div>
+          <div role="cell">60 mins</div>
+        </div>
+        <div role="row">
+          <div role="cell">Includes Wash</div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+        </div>
+        <div role="row">
+          <div role="cell">Custom Styling</div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+        </div>
+        <div role="row">
+          <div role="cell">Treatment Products</div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   
+  <section class="testimonials">
+    <h2>What Our Clients Say</h2>
+
+    <div class="testimonial">
+      <p>“I've been coming here for over a year — best salon experience ever! Friendly staff and flawless results.”</p>
+      <h4>- Calista Dave</h4>
+    </div>
+
+    <div class="testimonial">
+      <p>“Got my hair colored and styled here. The stylist really listened to me. Loved it!”</p>
+      <h4>- Josh Shitch</h4>
+    </div>
+
+    <div class="testimonial">
+      <p>“Welcoming environment and professional service. My haircut turned out even better than expected.”</p>
+      <h4>- Maris</h4>
+    </div>
+  </section>
+
+   
+  <section class="about">
+    <h2>About HairCare Hub</h2>
+    <p>
+      Founded in 2010, HairCare Hub delivers premium hair care with a blend of creativity and professionalism.
+      Our stylists stay updated with the latest trends and techniques to ensure you always get the best treatment.
+      Whether it’s a fresh haircut, a complete makeover, or a relaxing spa, we offer personalized care for you.
+    </p>
+  </section>
+
+   
+  <footer>
+    <div class="footer-container">
+      <div class="footer-box">
+        <h3>Contact Info</h3>
+        <p>📍 1209 Mountain Road PL NE, Albuquerque, NM 87110</p>
+        <p>📞 +1 214-807-1363</p>
+        <p>✉️ haircarehub@gmail.com</p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Information</h3>
+        <ul>
+          <li><a href="http://127.0.0.1:5500/index.html">Home</a></li>
+          <li><a href="http://127.0.0.1:5500/treatmentindex.html">Treatments</a></li>
+          <li><a href="http://127.0.0.1:5500/ramidieindex.html">Ramidie</a></li>
+          <li><a href="http://127.0.0.1:5500/Galleryindex.html">Gallery</a></li>
+           <li><a href="http://127.0.0.1:5500/productindex.html">Products</a></li>
+          <li><a href="http://127.0.0.1:5500/latestindex.html">Latest</a></li>
+          <li><a href="http://127.0.0.1:5500/contectindex.html">contect</a></li>
+          <li><a href="http://127.0.0.1:5500/equipmetindex.html">Equipments</a></li>
+           
+        </ul>
+      </div>
+
+      <div class="footer-box">
+        <h3>Newsletter</h3>
+        <p>Enter your email to stay updated:</p>
+        <form>
+          <input type="email" placeholder="Your Email" required />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+    <div class="social-icons">
+  <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="icon facebook">
+    <!-- Facebook SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.34 2 2 6.48 2 12.07 2 17.08 5.66 21.1 10.44 21.95v-6.86H8.3v-2.99h2.14V9.02c0-2.12 1.26-3.28 3.18-3.28.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.37.66-1.37 1.33v1.59h2.33l-.37 2.99h-1.96V21.95C18.34 21.1 22 17.08 22 12.07z"/></svg>
+  </a>
+
+  <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="icon instagram">
+    <!-- Instagram SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm6.5-1.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+
+  <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="icon twitter">
+    <!-- Twitter SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.92c-.66.29-1.37.5-2.11.59.76-.46 1.35-1.2 1.63-2.08-.71.42-1.5.72-2.34.88A3.56 3.56 0 0 0 12.3 8.7c0 .28.03.55.1.81-2.96-.15-5.58-1.56-7.34-3.71-.31.52-.49 1.12-.49 1.76 0 1.22.62 2.3 1.56 2.93-.58-.02-1.12-.18-1.6-.44v.04c0 1.7 1.21 3.12 2.82 3.44-.3.08-.62.12-.95.12-.23 0-.46-.02-.68-.06.46 1.43 1.8 2.47 3.39 2.5A7.14 7.14 0 0 1 4 19.54 10.08 10.08 0 0 0 8.66 21c6.54 0 10.12-5.89 10.12-11 0-.17 0-.33-.01-.49.7-.5 1.3-1.12 1.78-1.83-.64.29-1.32.49-2.03.57z"/></svg>
+  </a>
+  </footer>
+
+</body>
+</html>

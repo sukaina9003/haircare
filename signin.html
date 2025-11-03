@@ -1,0 +1,214 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Create Account - Salon Access</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #001d3d;
+    position: relative;
+  }
+
+  video.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    z-index: -2;
+    filter: blur(2px) brightness(0.9);
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(0, 123, 255, 0.3), transparent 60%),
+                radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.3), transparent 60%);
+    animation: gradientMove 15s infinite alternate ease-in-out;
+    z-index: -1;
+  }
+
+  @keyframes gradientMove {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-50px, -50px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .login-box {
+    position: relative;
+    z-index: 10;
+    width: 420px;
+    padding: 50px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow:
+      0 10px 25px rgba(0, 0, 0, 0.3),
+      inset 0 0 10px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    animation: fadeSlide 1.3s ease forwards;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes fadeSlide {
+    from { transform: translateY(60px) rotateX(15deg); opacity: 0; }
+    to { transform: translateY(0) rotateX(0); opacity: 1; }
+  }
+
+  .login-box::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    width: 80%;
+    height: 10px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+    transform: skewX(-20deg);
+    filter: blur(5px);
+    opacity: 0.3;
+  }
+
+  .login-box h2 {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+  }
+
+  .login-box p {
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 30px;
+  }
+
+  .login-box p a {
+    color: #00c6ff;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .input-box {
+    margin-bottom: 18px;
+  }
+
+  .input-box input {
+    width: 100%;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    transition: 0.3s ease;
+  }
+
+  .input-box input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 140, 255, 0.3);
+  }
+
+  .btn {
+    width: 100%;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 12px;
+    color: white;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 20px rgba(0, 150, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-25deg);
+    transition: 0.7s;
+  }
+
+  .btn:hover::before {
+    left: 200%;
+  }
+
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 120, 255, 0.7);
+  }
+
+  .return {
+    text-align: center;
+    margin-top: 25px;
+  }
+
+  .return a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  .return a:hover {
+    color: #00c6ff;
+  }
+</style>
+</head>
+
+<body>
+  <video autoplay muted loop class="bg-video">
+    <source src="https://cdn.pixabay.com/vimeo/264761441/hair-17134.mp4?width=640&hash=3e3aa8719cba6bdfb7b35f1e84a9124ebc987fc3" type="video/mp4" />
+  </video>
+
+  <div class="gradient-overlay"></div>
+
+  <div class="login-box">
+    <h2>Sign Up</h2>
+    <p>Already have an account? <a href="login.html">Sign In</a></p>
+
+    <div class="input-box">
+      <input type="text" placeholder="Full Name" required />
+    </div>
+    <div class="input-box">
+      <input type="email" placeholder="Email Address" required />
+    </div>
+    <div class="input-box">
+      <input type="password" placeholder="Password" required />
+    </div>
+    <div class="input-box">
+      <input type="password" placeholder="Confirm Password" required />
+    </div>
+
+    <button class="btn">CREATE ACCOUNT</button>
+
+    <div class="return">
+      <a href="new web.html">Return to Store</a>
+    </div>
+  </div>
+</body>
+</html>

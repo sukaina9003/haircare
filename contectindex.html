@@ -1,0 +1,482 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - HairCare Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    /* ----------------- Reset & Base ----------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    /* ----------------- Navbar ----------------- */
+   .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 15px rgba(255,255,255,0.05);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #000;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+    /* ----------------- Contact Section ----------------- */
+    .contact-section {
+      padding: 60px 5%;
+      min-height: 80vh;
+    }
+
+    .contact-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-container h1 {
+      color: #fff;
+      font-size: 2.4em;
+      margin-bottom: 10px;
+    }
+
+    .contact-container p {
+      color: #bbb;
+      font-size: 1.1em;
+      margin-bottom: 40px;
+    }
+
+    .contact-content {
+      display: flex;
+      gap: 30px;
+      text-align: left;
+    }
+
+    .contact-form-area,
+    .contact-info-area {
+      flex: 1;
+      padding: 30px;
+      background: #111;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .contact-content h2 {
+      color: #fff;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 10px;
+      font-size: 1.5em;
+    }
+
+    /* ----------------- Form ----------------- */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background: #000;
+      color: #fff;
+      font-size: 1em;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #fff;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: #fff;
+      color: #000;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      background-color: #ccc;
+      transform: translateY(-2px);
+    }
+
+    #formMessage.success {
+      color: #8f8;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    #formMessage.error {
+      color: #f88;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ----------------- Info Area ----------------- */
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .info-item i {
+      color: #fff;
+      font-size: 1.3em;
+      margin-right: 15px;
+    }
+
+    .info-item p {
+      color: #ccc;
+    }
+
+    .map-container {
+      margin-top: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+
+    iframe {
+      width: 100%;
+      height: 250px;
+      border: 0;
+    }
+
+    /* ----------------- Footer ----------------- */
+    footer {
+      background: #111;
+      padding: 50px 10% 20px;
+      color: #fff;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .footer-box h3 {
+      color: #fff;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+
+    .footer-box ul {
+      list-style: none;
+    }
+
+    .footer-box ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .footer-box ul li a:hover {
+      color: #fff;
+    }
+
+    .footer-box input {
+      padding: 8px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      flex: 1;
+    }
+
+    .footer-box button {
+      background: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .footer-box button:hover {
+      background: #000;
+      color: #fff;
+      border: 1px solid #fff;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .social-icons .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons .icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #000;
+      transition: 0.3s;
+    }
+
+    .social-icons .icon:hover {
+      transform: translateY(-6px);
+      background: #000;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .social-icons .icon:hover svg {
+      fill: #fff;
+    }
+
+    /* ----------------- Responsive ----------------- */
+    @media (max-width: 768px) {
+      .contact-content {
+        flex-direction: column;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./logo_for_website-removebg-preview.png" alt="Logo">
+        HairCare Hub
+      </div>
+      <ul class="nav-links">
+       <li><a href="./index.html">Home</a></li>
+        <li><a href="./treatmentindex.html">Treatments</a></li>
+        <li><a href="./ramidieindex.html">Remedies</a></li>
+        <li><a href="./equipmetindex.html">Equipments</a></li>
+        <li><a href="./productindex.html">Products</a></li>
+        <li><a href="./Galleryindex.html">Gallery</a></li>
+        <li><a href="./latestindex.html">Latest</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contact Section -->
+  <main class="contact-section">
+    <div class="contact-container">
+      <h1>Get in Touch</h1>
+      <p>We'd love to hear from you! Fill out the form below or find us on the map.</p>
+
+      <div class="contact-content">
+        <!-- Form -->
+        <div class="contact-form-area">
+          <h2>Send a Message</h2>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject:</label>
+              <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message:</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+            <p id="formMessage" class="hidden"></p>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div class="contact-info-area">
+          <h2>Our Details</h2>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i><p>123 Beauty Blvd, Salon City, SC 12345</p></div>
+          <div class="info-item"><i class="fas fa-phone-alt"></i><p>+92 300 1234567</p></div>
+          <div class="info-item"><i class="fas fa-envelope"></i><p>info@haircarehub.com</p></div>
+          <div class="info-item"><i class="fas fa-clock"></i><p>Mon - Sat: 10:00 AM - 8:00 PM</p></div>
+
+          <!-- Embedded Google Map -->
+          <div class="map-container">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.0144378755827!2d67.0583740752277!3d24.9775042778537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f1e6e76414f%3A0x5c0f6f21a79802f2!2sKarachi%2C%20Pakistan!5e0!3m2!1sen!2s!4v1730170000000!5m2!1sen!2s"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-box">
+        <h3>Contact Info</h3>
+        <p>📍 1209 Mountain Road PL NE, Albuquerque, NM 87110</p>
+        <p>📞 +1 214-807-1363</p>
+        <p>✉️ haircarehub@gmail.com</p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Information</h3>
+        <ul>
+          <li><a href="./index.html">Home</a></li>
+        <li><a href="./treatmentindex.html">Treatments</a></li>
+        <li><a href="./ramidieindex.html">Remedies</a></li>
+        <li><a href="./equipmetindex.html">Equipments</a></li>
+        <li><a href="./productindex.html">Products</a></li>
+        <li><a href="./Galleryindex.html">Gallery</a></li>
+        <li><a href="./latestindex.html">Latest</a></li>
+        
+        </ul>
+      </div>
+
+      <div class="footer-box">
+        <h3>Newsletter</h3>
+        <p>Enter your email to stay updated:</p>
+        <form>
+          <input type="email" placeholder="Your Email" required />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+     <div class="social-icons">
+  <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="icon facebook">
+    <!-- Facebook SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.34 2 2 6.48 2 12.07 2 17.08 5.66 21.1 10.44 21.95v-6.86H8.3v-2.99h2.14V9.02c0-2.12 1.26-3.28 3.18-3.28.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.37.66-1.37 1.33v1.59h2.33l-.37 2.99h-1.96V21.95C18.34 21.1 22 17.08 22 12.07z"/></svg>
+  </a>
+
+  <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="icon instagram">
+    <!-- Instagram SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm6.5-1.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+
+  <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="icon twitter">
+    <!-- Twitter SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.92c-.66.29-1.37.5-2.11.59.76-.46 1.35-1.2 1.63-2.08-.71.42-1.5.72-2.34.88A3.56 3.56 0 0 0 12.3 8.7c0 .28.03.55.1.81-2.96-.15-5.58-1.56-7.34-3.71-.31.52-.49 1.12-.49 1.76 0 1.22.62 2.3 1.56 2.93-.58-.02-1.12-.18-1.6-.44v.04c0 1.7 1.21 3.12 2.82 3.44-.3.08-.62.12-.95.12-.23 0-.46-.02-.68-.06.46 1.43 1.8 2.47 3.39 2.5A7.14 7.14 0 0 1 4 19.54 10.08 10.08 0 0 0 8.66 21c6.54 0 10.12-5.89 10.12-11 0-.17 0-.33-.01-.49.7-.5 1.3-1.12 1.78-1.83-.64.29-1.32.49-2.03.57z"/></svg>
+  </a>
+  </footer>
+
+  <!-- Form Script -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value;
+      const messageArea = document.getElementById('formMessage');
+
+      if (!form.name.value || !form.email.value || !form.subject.value || !form.message.value) {
+        messageArea.textContent = 'Please fill out all fields.';
+        messageArea.classList.remove('hidden', 'success');
+        messageArea.classList.add('error');
+        return;
+      }
+
+      setTimeout(() => {
+        form.reset();
+        messageArea.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
+        messageArea.classList.remove('hidden', 'error');
+        messageArea.classList.add('success');
+      }, 500);
+
+      setTimeout(() => {
+        messageArea.classList.add('hidden');
+      }, 4000);
+    });
+  </script>
+</body>
+</html>

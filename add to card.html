@@ -1,0 +1,157 @@
+ <section class="cart-section">
+  <div class="cart-card">
+    <h2>🛍️ Add to Cart</h2>
+    <p class="subtitle">Select your favorite product and quantity</p>
+
+    <form class="cart-form">
+      <div class="input-group">
+        <label for="product-name">Product Name</label>
+        <select id="product-name" required>
+          <option value="">Choose a product</option>
+          <option>Hair Serum</option>
+          <option>Shampoo</option>
+          <option>Hair Oil</option>
+          <option>Hair Mask</option>
+          <option>Conditioner</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" min="1" value="1" required />
+      </div>
+
+      <div class="input-group">
+        <label for="price">Price ($)</label>
+        <input type="text" id="price" placeholder="Auto-filled" readonly />
+      </div>
+
+      <button type="submit" class="btn">Add to Cart</button>
+    </form>
+  </div>
+</section>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+/* Background image with overlay */
+.cart-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("./000.jpg") no-repeat center center/cover;
+  /* 👆 apni image ka naam ya URL yahan lagayen */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  backdrop-filter: blur(4px);
+}
+
+.cart-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 50px 60px;
+  max-width: 470px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 35px rgba(0, 191, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease;
+}
+
+.cart-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 45px rgba(0, 191, 255, 0.5);
+}
+
+.cart-card h2 {
+  color: #00bfff;
+  margin-bottom: 12px;
+  font-size: 2.1rem;
+  text-shadow: 0 0 10px #00bfff;
+}
+
+.subtitle {
+  color: #ccc;
+  margin-bottom: 35px;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+}
+
+.cart-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.input-group {
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: #00bfff;
+  font-weight: 600;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  outline: none;
+  transition: 0.3s;
+  font-size: 0.95rem;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #00bfff;
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.6);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn {
+  background: linear-gradient(90deg, #00bfff, #0077ff);
+  color: black;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #00bfff;
+}
+
+.btn:hover {
+  background: white;
+  color: #00172b;
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #00bfff;
+}
+</style>
+
+<script>
+  // Auto-fill price logic
+  const prices = {
+    "Hair Serum": "$15",
+    "Shampoo": "$10",
+    "Hair Oil": "$12",
+    "Hair Mask": "$18",
+    "Conditioner": "$11",
+  };
+
+  document.getElementById("product-name").addEventListener("change", (e) => {
+    const selected = e.target.value;
+    document.getElementById("price").value = prices[selected] || "";
+  });
+</script>

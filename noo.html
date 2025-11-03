@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Now - HairCare Hub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #00bfff;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      animation: fadeInDown 1s ease;
+    }
+
+    .order-card {
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      width: 350px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.05);
+      text-align: center;
+      transition: 0.4s ease;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .order-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 40px rgba(0,191,255,0.3);
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 8px;
+      color: #ccc;
+      font-size: 0.9rem;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 20px;
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      outline: none;
+      transition: 0.3s;
+    }
+
+    select:focus, input:focus {
+      border-color: #00bfff;
+      box-shadow: 0 0 8px #00bfff;
+    }
+
+    button {
+      width: 100%;
+      background: #00bfff;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: white;
+      transform: scale(1.05);
+    }
+
+    .cart-container {
+      margin-top: 30px;
+      background: #111;
+      border-radius: 15px;
+      padding: 20px;
+      width: 350px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.05);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .cart-container h2 {
+      color: #00bfff;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+
+    ul {
+      list-style: none;
+      margin-bottom: 15px;
+    }
+
+    ul li {
+      background: #000;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total {
+      text-align: right;
+      color: #00bfff;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .checkout-btn {
+      display: block;
+      text-align: center;
+      background: #00bfff;
+      padding: 10px 25px;
+      border-radius: 25px;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .checkout-btn:hover {
+      background: white;
+      transform: scale(1.05);
+    }
+
+    .delete-btn {
+      color: #ff6666;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .delete-btn:hover {
+      transform: scale(1.2);
+      color: red;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🛒 Place Your Order</h1>
+
+  <div class="order-card">
+    <label for="product">Select Product</label>
+    <select id="product">
+      <option value="">Choose a Product </option>
+      <option value="Hair Spa">Hair Dryer - $25</option>
+      <option value="Hair Dryer">Hair Straightener - $40</option>
+      <option value="Shampoo">Curling Iron - $15</option>
+      <option value="Hair Serum">Hair Crimper- $20</option>
+      <option value="Hair Spa">Ultrasonic Hair IronLED Hair Growth Comb- $25</option>
+      <option value="Hair Dryer">  Blow Dryer Brush- $40</option>
+      <option value="Shampoo">Hair Volumizer - $15</option>
+      <option value="Hair Serum">Scalp Massager -  $20</option>
+      <option value="Hair Spa"> Hair Cutting Scissors- $25</option>
+      <option value="Hair Dryer"> Round Styling Brush- $40</option>
+      <option value="Shampoo"> Flat Iron Comb- $15</option>
+      <option value="Hair Serum"> Hair Diffuser- $20</option>
+      <option value="Hair Spa"> Hair Ozone Machine- $25</option>
+      <option value="Hair Dryer"> Keratin Treatment - $40</option>
+      
+    </select>
+
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" min="1" placeholder="Enter Quantity">
+
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+
+  <div class="cart-container">
+    <h2>Your Cart</h2>
+    <ul id="cartItems"></ul>
+    <div class="total">Total: $<span id="totalPrice">0</span></div>
+    <a href="checkout.html" class="checkout-btn" onclick="checkout(event)">CHECK OUT</a>
+  </div>
+
+  <script>
+    const prices = {
+      "Hair Spa": 25,
+      "Hair Dryer": 40,
+      "Shampoo": 15,
+      "Hair Serum": 20
+    };
+
+    let cart = [];
+
+    function addToCart() {
+      const product = document.getElementById("product").value;
+      const quantity = parseInt(document.getElementById("quantity").value);
+
+      if (!product || !quantity || quantity <= 0) {
+        alert("Please select a product and enter valid quantity.");
+        return;
+      }
+
+      const price = prices[product];
+      cart.push({ product, quantity, price });
+      renderCart();
+      document.getElementById("product").value = "";
+      document.getElementById("quantity").value = "";
+    }
+
+    function renderCart() {
+      const cartList = document.getElementById("cartItems");
+      const totalElement = document.getElementById("totalPrice");
+      cartList.innerHTML = "";
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          ${item.product} (x${item.quantity}) 
+          <span>
+            $${item.price * item.quantity}
+            <span class="delete-btn" onclick="removeItem(${index})">✖</span>
+          </span>`;
+        cartList.appendChild(li);
+        total += item.price * item.quantity;
+      });
+
+      totalElement.textContent = total;
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function checkout(e) {
+      if (cart.length === 0) {
+        e.preventDefault();
+        alert("Your cart is empty. Add items before checkout.");
+      } else {
+        alert("Redirecting to checkout...");
+      }
+    }
+  </script>
+</body>
+</html>

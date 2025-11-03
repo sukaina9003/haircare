@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ElectroHome — Amazon-style Magnifier (Single File)</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<style>
+  :root{
+    --yellow: #fbc02d;
+    --yellow-2: #fdd835;
+    --black: #000;
+    --muted: #7a7a7a;
+    --card-bg: #fff;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  body{
+    margin:0;
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: #fff;
+    color: #111;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  header{ padding:18px 20px; display:flex; justify-content:space-between; align-items:center; max-width:1200px; margin:0 auto; }
+  .brand{ font-weight:900; color:var(--yellow); font-size:20px; letter-spacing:0.6px }
+  .tag{ color:var(--muted); font-size:13px }
+
+  main{ max-width:1200px; margin:0 auto; padding:6px 20px 60px; }
+
+  h1{ text-align:center; color:var(--yellow); margin:10px 0 6px; font-size:26px }
+  p.lead{ text-align:center; color:var(--muted); margin-bottom:18px }
+
+  
+  .cards-row{
+    display:flex;
+    gap:18px;
+    justify-content:space-between;
+    align-items:stretch;
+    flex-wrap:nowrap; 
+    margin-bottom:28px;
+  }
+  @media (max-width:1024px){
+    .cards-row{ flex-wrap:wrap; justify-content:center; gap:16px; }
+  }
+
+  .card{
+    flex:0 0 calc(25% - 13.5px);
+    border-radius:var(--radius);
+    background:var(--card-bg);
+    box-shadow:0 10px 28px rgba(0,0,0,0.10);
+    overflow:hidden;
+    transition: transform .34s ease, box-shadow .34s ease;
+    display:flex;
+    flex-direction:column;
+  }
+  .card:hover{ transform:translateY(-8px); box-shadow:0 22px 45px rgba(0,0,0,0.14) }
+
+  .img-wrap{
+    height:210px;
+    background-size:cover;
+    background-position:center;
+    border-bottom:3px solid var(--yellow-2);
+    transition: transform .45s ease;
+  }
+  .card:hover .img-wrap{ transform:scale(1.03) }
+
+  .card-body{
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .title{ font-weight:800; color:var(--yellow); font-size:16px; text-transform:uppercase; letter-spacing:0.6px }
+  .subtitle{ color:var(--muted); font-size:13px; font-weight:600 }
+  .price{ margin-top:auto; font-weight:900; color:#111; font-size:18px }
+
+  .add-to-cart-btn{
+    margin-top:10px;
+    background: linear-gradient(90deg,var(--yellow),var(--yellow-2));
+    border:none;
+    color:#000;
+    padding:10px 12px;
+    border-radius:10px;
+    font-weight:800;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    position:relative;
+    overflow:hidden;
+    transition: all .28s ease;
+    width:100%;
+  }
+  .add-to-cart-btn:hover{ background:var(--black); color:var(--yellow); box-shadow:0 12px 30px rgba(0,0,0,0.45); }
+
+  .btn-text{ transition: opacity .24s ease, transform .24s ease; }
+  .cart-icon{ position:absolute; right:14px; opacity:0; transform:translateX(8px) scale(.95); transition:all .24s ease; font-size:18px; }
+  .add-to-cart-btn:hover .btn-text{ opacity:0; transform:translateY(-8px); }
+  .add-to-cart-btn:hover .cart-icon{ opacity:1; transform:translateX(0) scale(1.06); animation:bounce .6s ease; }
+  @keyframes bounce{ 0%{transform:translateY(6px) scale(.95)} 50%{transform:translateY(-6px) scale(1.12)} 100%{transform:translateY(0) scale(1)} }
+
+  
+  .product-page{
+    max-width:1100px;
+    margin:36px auto;
+    display:none;
+    gap:28px;
+    align-items:flex-start;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 12px 40px rgba(0,0,0,0.08);
+    background:var(--card-bg);
+    animation:fadeInUp .28s ease;
+  }
+  .product-page.active{ display:flex; flex-wrap:wrap; }
+
+  .product-left{ display:flex; flex-direction:column; gap:12px; align-items:center; min-width:320px; }
+  .product-image{ width:480px; max-width:100%; height:340px; object-fit:cover; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.12); position:relative; cursor:zoom-in; }
+  .thumbs{ display:flex; gap:10px; margin-top:10px; }
+  .thumbs img{ width:110px; height:70px; object-fit:cover; border-radius:8px; cursor:pointer; border:2px solid transparent; transition: all .14s ease; }
+  .thumbs img.active{ border-color:var(--yellow); transform:scale(1.03); }
+
+  .product-info{ flex:1; min-width:300px; max-width:700px; }
+  .product-info h1{ color:var(--yellow); margin:0 0 8px; font-size:24px; }
+  .p-sub{ color:var(--muted); margin-bottom:12px; font-weight:700; }
+  .p-price{ font-size:22px; font-weight:900; color:#111; margin-bottom:14px; }
+  .p-desc{ color:#333; line-height:1.7; margin-bottom:20px; white-space:pre-line; font-size:15px; }
+
+  .action-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .buy-btn{ background:var(--yellow); color:#000; padding:12px 18px; font-weight:800; border-radius:10px; border:none; cursor:pointer; }
+  .buy-btn:hover{ background:#000; color:var(--yellow); }
+  .back-btn{ background:transparent; border:2px solid var(--yellow); color:var(--yellow); padding:10px 16px; border-radius:10px; font-weight:700; cursor:pointer; }
+  .back-btn:hover{ background:var(--yellow); color:#000; }
+
+  
+  .magnifier-lens{
+    position:absolute;
+    pointer-events:none;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    box-shadow:0 8px 30px rgba(0,0,0,0.28);
+    border:4px solid rgba(255,255,255,0.95);
+    background-repeat:no-repeat;
+    background-position:0 0;
+    background-size:cover;
+    display:none;
+    z-index:2000;
+    transform:translate(-50%,-50%);
+    transition: opacity .12s ease;
+    will-change: left, top, background-position, background-size;
+  }
+
+  .zoom-hint{ font-size:13px; color:var(--muted); margin-top:6px; text-align:center; }
+
+  @keyframes fadeInUp{ from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:none } }
+
+  
+  @media (max-width:1040px){
+    .card{ flex:0 0 46%; }
+    .product-page{ padding:18px; }
+    .product-image{ height:300px; }
+  }
+  @media (max-width:700px){
+    .cards-row{ gap:12px; }
+    .card{ flex:0 0 100%; }
+    .product-page{ flex-direction:column; align-items:center; }
+    .product-info{ width:100%; }
+    .product-image{ width:100%; height:320px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="brand">ElectroHome</div>
+    <div class="tag">Premium Electronics — Black & Yellow</div>
+  </div>
+</header>
+
+<main>
+  <h1>Featured Electronics</h1>
+  <p class="lead">Click any product card or "View Details" to open product page. Click the main image on product page to enable the magnifier (Amazon-like).</p>
+
+    <section id="homeView">
+    <div class="cards-row" id="cardsRow">
+  
+      <div class="card" data-id="product-1">
+        <div class="img-wrap" style="background-image:url('https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="card-body">
+          <div class="title">ApexGame Pro 17</div>
+          <div class="subtitle">High-End Gaming Laptop</div>
+          <div class="price">$2,199.00</div>
+          <button class="add-to-cart-btn" data-target="product-1">
+            <span class="btn-text">View Details</span>
+            <i class="fas fa-cart-plus cart-icon"></i>
+          </button>
+        </div>
+      </div>
+
+  
+      <div class="card" data-id="product-2">
+        <div class="img-wrap" style="background-image:url('https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="card-body">
+          <div class="title">Nova X Pro</div>
+          <div class="subtitle">Flagship Smartphone</div>
+          <div class="price">$999.00</div>
+          <button class="add-to-cart-btn" data-target="product-2">
+            <span class="btn-text">View Details</span>
+            <i class="fas fa-cart-plus cart-icon"></i>
+          </button>
+        </div>
+      </div>
+
+        <div class="card" data-id="product-3">
+        <div class="img-wrap" style="background-image:url('https://images.unsplash.com/photo-1519741496522-5e2a6b9f7b5b?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="card-body">
+          <div class="title">TrailWatch Ultra</div>
+          <div class="subtitle">Adventure Smartwatch</div>
+          <div class="price">$799.00</div>
+          <button class="add-to-cart-btn" data-target="product-3">
+            <span class="btn-text">View Details</span>
+            <i class="fas fa-cart-plus cart-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      
+      <div class="card" data-id="product-4">
+        <div class="img-wrap" style="background-image:url('https://images.unsplash.com/photo-1518444020236-88c6c2d64e0b?q=80&w=1600&auto=format&fit=crop');"></div>
+        <div class="card-body">
+          <div class="title">SonicWave ANC</div>
+          <div class="subtitle">Wireless Noise-Cancelling Headphones</div>
+          <div class="price">$449.00</div>
+          <button class="add-to-cart-btn" data-target="product-4">
+            <span class="btn-text">View Details</span>
+            <i class="fas fa-cart-plus cart-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="productPage" class="product-page" aria-hidden="true"></section>
+
+  
+  <div id="magnifier" class="magnifier-lens" aria-hidden="true"></div>
+</main>
+
+<script>
+const PRODUCTS = {
+  "product-1": {
+    id: "product-1",
+    name: "ApexGame Pro 17",
+    short: "High-End Gaming Laptop",
+    price: "$2,199.00",
+    images: [
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=1600&auto=format&fit=crop"
+    ],
+    desc: `ApexGame Pro 17 is engineered for serious gamers and creators who demand desktop-class performance in a portable chassis.
+This powerhouse features top-tier components — the latest high-frequency CPU, an enthusiast-grade GPU, up to 64GB DDR5 memory, and PCIe Gen4 NVMe storage — delivering blistering load times and smooth frame rates at high settings.
+
+The 17" IPS/mini-LED display offers a high refresh rate, excellent color accuracy, and adaptive sync for competitive gaming and color-critical work. Cooling has been redesigned with multi-stage vapor chambers and dual high-flow fans to keep thermals low under heavy load.
+
+Why you'll love it:
+• Enthusiast GPU (Max-Performance thermal profile)
+• High-refresh 17" display • Up to 64GB DDR5 RAM
+• 1TB+ NVMe SSD storage options • Advanced cooling & RGB per-zone keyboard`
+  },
+
+  "product-2": {
+    id: "product-2",
+    name: "Nova X Pro",
+    short: "Flagship Smartphone",
+    price: "$999.00",
+    images: [
+      "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1525182008055-f88b95ff7980?q=80&w=1600&auto=format&fit=crop"
+    ],
+    desc: `The Nova X Pro combines a refined industrial design with bleeding-edge mobile technology.
+It offers a pro-level camera system with multi-sensor setup and computational photography features so your photos come out sharp in any lighting. The chipset delivers smooth UI, powerful AI on-device features, and top-tier gaming performance.
+
+Display and battery have been balanced for everyday endurance: a bright, adaptive OLED with HDR support plus fast wired/wireless charging. The phone focuses on a premium feel — glass with subtle matte finish, precision metal frame, and an ergonomic curve for comfortable one-handed use.
+
+Key highlights:
+• Pro-class camera array with advanced night and portrait modes
+• Bright adaptive OLED display with high refresh rate
+• Fast charging, solid battery life, and premium build quality`
+  },
+
+  "product-3": {
+    id: "product-3",
+    name: "TrailWatch Ultra",
+    short: "Adventure Smartwatch",
+    price: "$799.00",
+    images: [
+      "https://images.unsplash.com/photo-1519741496522-5e2a6b9f7b5b?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1557180295-76eee20ae8aa?q=80&w=1600&auto=format&fit=crop"
+    ],
+    desc: `TrailWatch Ultra puts rugged reliability and precise outdoors tracking on your wrist.
+Built with a durable titanium frame and sapphire screen options, it offers dual-frequency GPS for industry-leading tracking accuracy, multi-day battery modes for long treks, and advanced health sensors for heart-rate, SpO2 and recovery metrics.
+
+It integrates mapping, weather, and emergency features that matter in the wild — yet remains elegant enough for daily wear.
+
+Notable features:
+• Dual-frequency GNSS for accurate tracking
+• Extended battery modes (multi-day) • Robust materials (titanium & sapphire)
+• Comprehensive health & activity sensors`
+  },
+
+  "product-4": {
+    id: "product-4",
+    name: "SonicWave ANC",
+    short: "Wireless Noise-Cancelling Headphones",
+    price: "$449.00",
+    images: [
+      "https://images.unsplash.com/photo-1518444020236-88c6c2d64e0b?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1526178618270-5d0a1526f7f1?q=80&w=1600&auto=format&fit=crop"
+    ],
+    desc: `SonicWave ANC delivers immersive sound and industry-leading noise cancellation in a refined package.
+Tuned for clarity and musicality, the drivers produce punchy but controlled bass, transparent mids and crisp highs. Adaptive ANC profiles intelligently reduce ambient noise across environments, while transparency mode keeps you aware of your surroundings.
+
+Comfortable for long listening sessions with memory-foam earcups, reliable multipoint Bluetooth, and fast charging for quick top-ups mid-day.
+
+Highlights:
+• Adaptive ANC & transparency mode
+• Up to ~30 hours battery life (ANC on)
+• Fast charge & multipoint Bluetooth connectivity`
+  }
+};
+
+
+const cardsRow = document.getElementById('cardsRow');
+const productPage = document.getElementById('productPage');
+const homeView = document.getElementById('homeView');
+const magnifier = document.getElementById('magnifier');
+
+
+cardsRow.addEventListener('click', (e) => {
+  const btn = e.target.closest('.add-to-cart-btn');
+  if (btn && btn.dataset && btn.dataset.target) {
+    openProduct(btn.dataset.target);
+    return;
+  }
+  const card = e.target.closest('.card');
+  if (card && card.dataset && card.dataset.id) {
+    openProduct(card.dataset.id);
+  }
+});
+
+
+function openProduct(productId, pushHash = true) {
+  const p = PRODUCTS[productId];
+  if (!p) return;
+
+  
+  productPage.innerHTML = `
+    <div class="product-left">
+      <img id="mainImage" class="product-image" src="${p.images[0]}" alt="${escapeHtml(p.name)}" crossorigin="anonymous">
+      <div class="thumbs" id="thumbs">
+        <img src="${p.images[0]}" data-src="${p.images[0]}" class="active" alt="thumb1">
+        <img src="${p.images[1]}" data-src="${p.images[1]}" alt="thumb2">
+      </div>
+      <div class="zoom-hint">Click image to toggle magnifier. Move cursor/finger to inspect details.</div>
+    </div>
+    <div class="product-info">
+      <h1>${escapeHtml(p.name)}</h1>
+      <div class="p-sub">${escapeHtml(p.short)}</div>
+      <div class="p-price">${escapeHtml(p.price)}</div>
+      <div class="p-desc">${escapeHtml(p.desc)}</div>
+      <div class="action-row">
+        <button class="buy-btn" onclick="buyNow('${p.id}')"><i class="fas fa-shopping-cart" style="margin-right:8px"></i>Add to Cart</button>
+        <button class="back-btn" onclick="backToHome()">Back to Shop</button>
+      </div>
+    </div>
+  `;
+
+    homeView.style.display = 'none';
+  productPage.classList.add('active');
+  productPage.setAttribute('aria-hidden','false');
+
+  
+  if (pushHash) location.hash = p.id;
+
+    const thumbs = document.getElementById('thumbs');
+  thumbs.addEventListener('click', (ev) => {
+    const t = ev.target.closest('img');
+    if (!t) return;
+    const main = document.getElementById('mainImage');
+    main.src = t.dataset.src || t.src;
+    Array.from(thumbs.querySelectorAll('img')).forEach(i => i.classList.remove('active'));
+    t.classList.add('active');
+  
+    hideMagnifier();
+  });
+
+  
+  const mainImg = document.getElementById('mainImage');
+  let lensActive = false;
+  const ZOOM = 2.6; 
+
+  
+  mainImg.addEventListener('click', function (ev) {
+  
+    lensActive = !lensActive;
+    if (!lensActive) {
+      hideMagnifier();
+      return;
+    }
+    showMagnifierOnImage(mainImg, ZOOM);
+  });
+
+
+  setTimeout(()=> productPage.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+}
+
+
+function showMagnifierOnImage(imgEl, zoom) {
+  const lens = magnifier;
+  lens.style.display = 'block';
+  lens.setAttribute('aria-hidden','false');
+  lens.style.opacity = '1';
+  lens.style.backgroundImage = `url(${imgEl.src})`;
+
+  
+  function updateBgSize() {
+    const ew = imgEl.width;
+    const eh = imgEl.height;
+    lens.style.backgroundSize = `${ew * zoom}px ${eh * zoom}px`;
+  }
+  updateBgSize();
+  window.addEventListener('resize', updateBgSize);
+
+  
+  function moveLens(e) {
+  
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    const rect = imgEl.getBoundingClientRect();
+    const lensW = lens.offsetWidth;
+    const lensH = lens.offsetHeight;
+
+   
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+
+   
+    const clampedX = Math.max(0, Math.min(x, rect.width));
+    const clampedY = Math.max(0, Math.min(y, rect.height));
+
+   
+    const left = rect.left + clampedX;
+    const top = rect.top + clampedY;
+    lens.style.left = left + 'px';
+    lens.style.top = top + 'px';
+
+   
+    const bgX = (clampedX / rect.width) * (imgEl.width * zoom) - (lensW / 2);
+    const bgY = (clampedY / rect.height) * (imgEl.height * zoom) - (lensH / 2);
+
+    lens.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+  }
+
+ 
+  function onPointerMove(e) { moveLens(e); }
+  function onPointerLeave() { lens.style.display = 'none'; }
+  function onPointerEnter(e) { lens.style.display = 'block'; moveLens(e); }
+
+  
+  document.addEventListener('pointermove', onPointerMove, { passive: true });
+  imgEl.addEventListener('pointerleave', onPointerLeave);
+  imgEl.addEventListener('pointerenter', onPointerEnter);
+
+ 
+  imgEl.addEventListener('touchmove', onPointerMove, { passive: true });
+  imgEl.addEventListener('touchend', onPointerLeave);
+
+ 
+  lens._cleanup = function() {
+    document.removeEventListener('pointermove', onPointerMove);
+    imgEl.removeEventListener('pointerleave', onPointerLeave);
+    imgEl.removeEventListener('pointerenter', onPointerEnter);
+    imgEl.removeEventListener('touchmove', onPointerMove);
+    imgEl.removeEventListener('touchend', onPointerLeave);
+    window.removeEventListener('resize', updateBgSize);
+    lens.style.display = 'none';
+    lens.setAttribute('aria-hidden','true');
+    lens._cleanup = null;
+  };
+
+
+  const rect = imgEl.getBoundingClientRect();
+  const fakeEvent = { clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 2 };
+  moveLens(fakeEvent);
+}
+
+function hideMagnifier(){
+  if (magnifier._cleanup) magnifier._cleanup();
+  magnifier.style.display = 'none';
+  magnifier.setAttribute('aria-hidden','true');
+}
+
+
+function backToHome() {
+
+  history.pushState("", document.title, window.location.pathname + window.location.search);
+  productPage.classList.remove('active');
+  productPage.setAttribute('aria-hidden','true');
+  homeView.style.display = '';
+  if (magnifier._cleanup) magnifier._cleanup();
+  magnifier.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+function buyNow(id){
+  const p = PRODUCTS[id];
+
+  alert(`${p.name} added to cart (demo).`);
+}
+
+
+window.addEventListener('hashchange', () => {
+  const id = location.hash.replace('#','');
+  if (id && PRODUCTS[id]) openProduct(id, false);
+  else backToHome();
+});
+window.addEventListener('load', () => {
+  const id = location.hash.replace('#','');
+  if (id && PRODUCTS[id]) openProduct(id, false);
+});
+
+
+function escapeHtml(str){
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+</script>
+
+</body>
+</html>

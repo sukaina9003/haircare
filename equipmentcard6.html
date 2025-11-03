@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hair Treatment</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #faf7f7;
+      color: #000000;
+    }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 15px rgba(255,255,255,0.05);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #000;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+      gap: 40px;
+    }
+
+    .image-section img {
+      width: 350px;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgb(255, 255, 255);
+    }
+
+    .content-section {
+      max-width: 500px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 2px solid rgb(0, 0, 0);
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      margin: 15px 0;
+      color: #000000;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: transparent;
+      color: rgb(0, 0, 0);
+      border: 2px solid rgb(0, 0, 0);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .image-section img {
+        width: 80%;
+      }
+    }
+    footer {
+      background: #111;
+      padding: 50px 10% 20px;
+      color: #fff;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .footer-box h3 {
+      color: #fff;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+
+    .footer-box ul {
+      list-style: none;
+    }
+
+    .footer-box ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .footer-box ul li a:hover {
+      color: #fff;
+    }
+
+    .footer-box input {
+      padding: 8px;
+      border: none;
+      border-radius: 20px;
+      outline: none;
+      flex: 1;
+    }
+
+    .footer-box button {
+      background: #fff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .footer-box button:hover {
+      background: #000;
+      color: #fff;
+      border: 1px solid #fff;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .social-icons .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .social-icons .icon svg {
+      width: 22px;
+      height: 22px;
+      fill: #000;
+      transition: 0.3s;
+    }
+
+    .social-icons .icon:hover {
+      transform: translateY(-6px);
+      background: #000;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .social-icons .icon:hover svg {
+      fill: #fff;
+    }
+
+    .flip-card:hover .flip-front img {
+  transform: scale(1.05);
+  filter: brightness(1.05);
+}
+.flip-front img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  filter: none; /* black shade removed */
+  transition: 0.4s;
+}
+.flip-front img {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  filter: none; /* black shade removed */
+  transition: 0.4s;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+        <div class="logo"><img src="logo_for_website-removebg-preview.png" alt="" height="50px" width="30px">HairCare Hub</div>
+      <ul class="nav-links">
+          <li><a href="./index.html">Home</a></li>
+        <li><a href="./treatmentindex.html" class="active">Treatments</a></li>
+        <li><a href="./ramidieindex.html">Remedies</a></li>
+          <li><a href="./productindex.html">Products</a></li>
+        <li><a href="./Galleryindex.html">Gallery</a></li>
+        <li><a href="./latestindex.html">Latest</a></li>
+        <li><a href="./contectindex.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="image-section">
+      <img src="./Blow Dryer Brush 2.jpg" alt="Hair Treatment">
+    </div>
+    <div class="content-section">
+      <h1> Blow Dryer Brush</h1>
+      <p>The Blow Dryer Brush is an innovative 2-in-1 tool that fuses the function of a hair dryer with the design of a round styling brush.It features air vents and bristles on a barrel, allowing it to dry hair and shape it simultaneously in a single motion.</p>
+
+      <h3>Benefits:</h3>
+      <ul>
+        <li>Time Saver: It significantly cuts down styling time because you are drying and styling the hair in one easy step.</li>
+        <li>Ease of Use: It eliminates the struggle of maneuvering a separate round brush and hair dryer, providing simple, one-handed operation.</li>
+        <li>Superior Volume and Smoothness: It delivers exceptional lift at the roots and a smooth, frizz-free finish across the lengths.</li>
+        <li>Controlled Heat: By distributing heat evenly around the brush barrel, it offers a more controlled drying process, which can be gentler on the hair than a traditional dryer.</li>
+      </ul>
+
+      <h3>Directions:</h3>
+      <p>Start with towel-dried hair that is about 80% dry, and always apply a heat protectant spray before turning the tool on.Work with small sections of hair, placing the brush close to the roots and pulling it slowly and smoothly down to the ends.</p>
+
+      <a href="http://127.0.0.1:5500/noo.html" class="btn"> Add To Card</a>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-box">
+        <h3>Contact Info</h3>
+        <p>📍 1209 Mountain Road PL NE, Albuquerque, NM 87110</p>
+        <p>📞 +1 214-807-1363</p>
+        <p>✉️ haircarehub@gmail.com</p>
+      </div>
+
+      <div class="footer-box">
+        <h3>Information</h3>
+        <ul>
+           <li><a href="./index.html">Home</a></li>
+        <li><a href="./treatmentindex.html" class="active">Treatments</a></li>
+        <li><a href="./ramidieindex.html">Remedies</a></li>
+          <li><a href="./productindex.html">Products</a></li>
+        <li><a href="./Galleryindex.html">Gallery</a></li>
+        <li><a href="./latestindex.html">Latest</a></li>
+        <li><a href="./contectindex.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-box">
+        <h3>Newsletter</h3>
+        <p>Enter your email to stay updated:</p>
+        <form>
+          <input type="email" placeholder="Your Email" required />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+     <div class="social-icons">
+  <a href="https://facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="icon facebook">
+    <!-- Facebook SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12.07C22 6.48 17.52 2 11.93 2 6.34 2 2 6.48 2 12.07 2 17.08 5.66 21.1 10.44 21.95v-6.86H8.3v-2.99h2.14V9.02c0-2.12 1.26-3.28 3.18-3.28.92 0 1.88.16 1.88.16v2.07h-1.06c-1.05 0-1.37.66-1.37 1.33v1.59h2.33l-.37 2.99h-1.96V21.95C18.34 21.1 22 17.08 22 12.07z"/></svg>
+  </a>
+
+  <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="icon instagram">
+    <!-- Instagram SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.2a4.8 4.8 0 1 0 0 9.6 4.8 4.8 0 0 0 0-9.6zm6.5-1.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 9.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z"/></svg>
+  </a>
+
+  <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="icon twitter">
+    <!-- Twitter SVG -->
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 5.92c-.66.29-1.37.5-2.11.59.76-.46 1.35-1.2 1.63-2.08-.71.42-1.5.72-2.34.88A3.56 3.56 0 0 0 12.3 8.7c0 .28.03.55.1.81-2.96-.15-5.58-1.56-7.34-3.71-.31.52-.49 1.12-.49 1.76 0 1.22.62 2.3 1.56 2.93-.58-.02-1.12-.18-1.6-.44v.04c0 1.7 1.21 3.12 2.82 3.44-.3.08-.62.12-.95.12-.23 0-.46-.02-.68-.06.46 1.43 1.8 2.47 3.39 2.5A7.14 7.14 0 0 1 4 19.54 10.08 10.08 0 0 0 8.66 21c6.54 0 10.12-5.89 10.12-11 0-.17 0-.33-.01-.49.7-.5 1.3-1.12 1.78-1.83-.64.29-1.32.49-2.03.57z"/></svg>
+  </a>
+  </footer>
+</body>
+</html>

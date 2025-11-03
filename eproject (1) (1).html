@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HairCare Hub</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0b1a2b;
+      color: #fff;
+    }
+
+    
+    header {
+      background: #0b1a2b;
+      border-bottom: 3px solid #c4e0f7;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: rgb(255, 255, 255);
+  transition: width 0.4s ease;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #c4e0f7;
+    }
+    .logo img { height: 40px; margin-right: 10px; }
+    .nav-links { list-style: none; display: flex; gap: 20px; }
+    .nav-links a {
+      color: #c4e0f7; text-decoration: none; font-size: 1rem;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #c4e0f7; }
+    .menu-toggle { display: none; }
+
+    
+    .banner {
+      margin-top: 70px;
+      height: 90vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .slides {
+      display: flex;
+      width: 100%;
+      height: 100%;
+     
+    }
+    .slide {
+      width: 100%;
+      flex-shrink: 0;
+      height: 100%;
+      position: relative;
+    }
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .banner-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #0b1a2b;
+    
+      border-radius: 12px;
+      text-align: center;
+    }
+    .banner-text h1 {
+      font-size: 3rem;
+      color: #c4e0f7;
+      margin-bottom: 15px;
+    }
+    .banner-text p { font-size: 1.2rem; margin-bottom: 20px; }
+    .banner-text button {
+      background: #c4e0f7; color: #fff; border: none;
+      padding: 12px 25px; font-size: 1rem;
+      border-radius: 8px; cursor: pointer; transition: 0.3s;
+    }
+    .banner-text button:hover { background: #c4e0f7; }
+
+    @keyframes slide {
+      0%   { transform: translateX(0%); }
+      20%  { transform: translateX(0%); }
+      25%  { transform: translateX(-100%); }
+      45%  { transform: translateX(-100%); }
+      50%  { transform: translateX(-200%); }
+      70%  { transform: translateX(-200%); }
+      75%  { transform: translateX(-300%); }
+      95%  { transform: translateX(-300%); }
+      100% { transform: translateX(0%); }
+    }
+
+     
+    footer {
+      background: #0b1a2b;
+      padding: 50px 20px;
+      text-align: center;
+    }
+    footer h2 { color: #c4e0f7; margin-bottom: 20px; }
+    .contact-form {
+      max-width: 600px;
+      margin: auto;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #c4e0f7;
+      border-radius: 8px;
+      background: #0b1a2b;
+      color: #fff;
+    }
+    .contact-form button {
+      background: #c4e0f7; color: #fff;
+      padding: 12px 25px; border: none;
+      border-radius: 8px; font-size: 1rem;
+      cursor: pointer; transition: 0.3s;
+    }
+    .contact-form button:hover { background: #c4e0f7; }
+
+    
+    @media(max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; background: #0b1a2b;
+        position: absolute; top: 70px; right: 20px; padding: 15px; border-radius: 8px;}
+      .nav-links.show { display: flex; }
+      .menu-toggle { display: block; cursor: pointer; font-size: 1.5rem; color: #c4e0f7; }
+      .banner-text h1 { font-size: 2rem; }
+    }
+    .hero {
+    max-width: 1100px;
+    margin: 60px auto 40px;
+    padding: 0 20px;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-text {
+    flex: 1 1 400px;
+    animation: fadeInLeft 1.3s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #000000;
+  }
+
+  .hero-text p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #000000;
+  }
+
+  .btn-primary {
+    background: #0b1a2b;
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px  #0b1a2b;
+    transition:  #0b1a2b;
+  }
+
+  .btn-primary:hover {
+    background:  #0b1a2b;
+    box-shadow: 0 10px 25px  #0b1a2b;
+  }
+
+  .hero-image {
+    flex: 1 1 450px;
+    animation: fadeInRight 1.3s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-image img {
+    width: 100%;
+    border-radius: 25px;
+    box-shadow: 0 12px 30px #0b1a2b;
+  }
+
+  section.services {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+
+  section.services h2 {
+    font-size: 2.6rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #0b1a2b;
+  }
+
+  .service-cards {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .service-card {
+    background: white;
+    flex: 1 1 280px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px  #0b1a2b;
+    padding: 30px 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: default;
+  }
+
+  .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 14px 40px  #0b1a2b;
+  }
+
+  .service-card img {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+
+  .service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #0b1a2b;
+  }
+
+  .service-card p {
+    color: #464646;
+    font-size: 1rem;
+  }
+
+  section.testimonials {
+    max-width: 900px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  section.testimonials h2 {
+    font-size: 2.6rem;
+    margin-bottom: 50px;
+    color: #0b1a2b;
+  }
+
+  .testimonial {
+    background: white;
+    border-radius: 25px;
+    padding: 30px 40px;
+    box-shadow: 0 8px 30px  #0b1a2b;
+    margin: 0 auto 40px;
+    max-width: 700px;
+    font-style: italic;
+    position: relative;
+  }
+
+  .testimonial::before {
+    content: '“';
+    font-size: 4rem;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: #0b1a2b;
+    opacity: 0.15;
+  }
+
+  .testimonial p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #0b1a2b;
+  }
+
+  .testimonial .author {
+    font-weight: 700;
+    color: #0b1a2b;
+    font-size: 1rem;
+  }
+
+  section.about {
+    background: #e8f0fe;
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: 60px auto;
+    border-radius: 25px;
+  }
+
+  section.about h2 {
+    color: #0b1a2b;
+    font-size: 2.6rem;
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  section.about p {
+    max-width: 750px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #0b1a2b;
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  section.contact {
+    max-width: 1100px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  section.contact h2 {
+    color: #0b1a2b;
+    font-size: 2.6rem;
+    margin-bottom: 40px;
+  }
+
+  .contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px  #0b1a2b;
+    flex: 1 1 250px;
+  }
+
+  .contact-item h3 {
+    color: #0b1a2b;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+
+  .contact-item p {
+    font-size: 1rem;
+    color: #0b1a2b;
+  }
+ 
+  footer {
+    background: #0b1a2b;
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    font-size: 1rem;
+    margin-top: 60px;
+  }
+
+  
+  @keyframes fadeInLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+   
+  @media (max-width: 900px) {
+    nav {
+      gap: 20px;
+      font-size: 0.9rem;
+    }
+    .hero {
+      flex-direction: column;
+    }
+    .hero-text, .hero-image {
+      flex: 1 1 100%;
+      text-align: center;
+    }
+    .hero-image img {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .service-cards {
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+    .contact-info {
+      flex-direction: column;
+      gap: 25px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header {
+      font-size: 1.8rem;
+    }
+    .hero-text h1 {
+      font-size: 2.4rem;
+    }
+    section.services h2,
+    section.testimonials h2,
+    section.about h2,
+    section.contact h2 {
+      font-size: 2rem;
+    }
+  }
+  #testimonials-heading{
+    color: #e8f0fe;
+  }
+  .comparison-table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 40px auto 80px auto;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(80, 46, 3, 0);
+    background-color: rgba(46, 34, 1, 0.61);
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"] {
+    display: flex;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    cursor: default;
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"]:first-child {
+    background: linear-gradient(90deg, #000000, #000000);
+    color: #f0f4ff;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    user-select: none;
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"]:not(:first-child):hover {
+    background-color: #000000;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(173, 119, 18, 0.5);
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"] > div {
+    flex: 1;
+    padding: 18px 25px;
+    text-align: center;
+    border-bottom: 1px solid #1f2d4d;
+    border-right: 1px solid #1f2d4d;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"] > div:last-child {
+    border-right: none;
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"]:not(:first-child):nth-child(even) {
+    background-color: rgba(20, 38, 70, 0.7);
+    text-align: center;
+  }
+
+  .comparison-table > div[role="rowgroup"] > div[role="row"] > div:first-child {
+    font-weight: 600;
+    text-align: left;
+    color: #c7d2fe;
+    text-align: center;
+  }
+
+ 
+  .checkmark {
+    color: #66ff99;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .crossmark {
+    color: #ff6b6b;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  
+  @media (max-width: 720px) {
+    .comparison-table > div[role="rowgroup"] > div[role="row"] {
+      flex-direction: column;
+      border-bottom: none;
+      text-align: center;
+    }
+    .comparison-table > div[role="rowgroup"] > div[role="row"] > div {
+      border-right: none;
+      border-bottom: 1px solid #133d7c;
+      text-align: center;
+      padding: 15px 20px;
+    }
+    .comparison-table > div[role="rowgroup"] > div[role="row"] > div:first-child {
+      background-color: #133d7c;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+  }
+ 
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  h2 {
+    text-align: center;
+    font-size: 2.8rem;
+    margin-top: 50px;
+    animation: fadeInDown 1s ease forwards;
+    opacity: 0;
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.8);
+  }
+  </style>
+</head>
+<body>
+
+ 
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="http://127.0.0.1:5500/eproject%20(1).html"> 
+        <img src="./logo_for_website-removebg-preview.png" alt="Logo" height="90px" width="25px"></a>
+        HairCare Hub
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="http://127.0.0.1:5500/eproject%20(1).html"><b> Home</b></a></li>
+        <li><a href="http://127.0.0.1:5500/treatment(2).html"><b> Treatments</b></a></li>
+        <li><a href="http://127.0.0.1:5500/ramidies(2).html"><b> Remedies</b></a></li>
+        <li><a href="http://127.0.0.1:5500/Hair%20Care%20Equipments.html"><b>Equipments</b></a></li>
+        <li><a href="http://127.0.0.1:5500/product(2).html"><b> Products</b></a></li>
+        <li><a href="http://127.0.0.1:5500/Gairly.html"><b> Gallery</b></a></li>
+        <li><a href="http://127.0.0.1:5500/latest.html"><b> Latest</b></a></li>
+        <li><a href="http://127.0.0.1:5500/contect%20us.html"><b> Contact</b></a></li>
+        <li><a href="http://127.0.0.1:5500/login.html"><b> Login</b></a></li>
+        <li><a href="http://127.0.0.1:5500/sign%20(1).html"><b> Signup</b></a></li>
+      </ul>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </nav>
+  </header>
+
+  
+  <section class="banner">
+    <div class="slides">
+      <div class="slide">
+        <img src="./00101010101.jpg" alt="Salon 1">
+        <div class="banner-text">
+        </div>
+      </div>
+    </div>
+    
+    
+     
+    </section>
+    
+<section class="comparisons" aria-labelledby="comparisons-heading">
+    <h2 id="comparisons-heading">Service Comparison</h2>
+  
+    <div class="comparison-table" role="table" aria-label="Comparison of Hair Salon Services">
+      <div role="rowgroup">
+        <div role="row">
+          <div role="columnheader">Features</div>
+          <div role="columnheader">Basic Haircut</div>
+          <div role="columnheader">Styling</div>
+          <div role="columnheader">Coloring</div>
+          <div role="columnheader">Hair Treatment</div>
+        </div>
+      </div>
+  
+      <div role="rowgroup">
+        <div role="row">
+          <div role="cell">Price</div>
+          <div role="cell">$25</div>
+          <div role="cell">$40</div>
+          <div role="cell">$70</div>
+          <div role="cell">$50</div>
+        </div>
+        <div role="row">
+          <div role="cell">Duration</div>
+          <div role="cell">30 mins</div>
+          <div role="cell">45 mins</div>
+          <div role="cell">90 mins</div>
+          <div role="cell">60 mins</div>
+        </div>
+        <div role="row">
+          <div role="cell">Includes Wash</div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+        </div>
+        <div role="row">
+          <div role="cell">Custom Styling</div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+        </div>
+        <div role="row">
+          <div role="cell">Treatment Products</div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+          <div role="cell"><span class="crossmark">❌</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+          <div role="cell"><span class="checkmark">✔️</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+    
+    <section class="testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading">What Our Clients Say</h2>
+    
+      <div class="testimonial" tabindex="0">
+        <p> 
+
+            "I’ve been coming here for over a year and I can confidently say this is the best salon I’ve ever been to. The staff is so friendly, and the results are always flawless. Highly recommended!"
+            </p>
+        <div class="author"> CALISTA DAVE</div>
+      </div>
+    
+      <div class="testimonial" tabindex="0">
+        <p> "I got my hair colored and styled here, and I absolutely loved the experience. Clean space, relaxing vibe, and the stylist really listened to what I wanted. I'll definitely be back!"
+        </p>
+        <div class="author"> JOSH SHITCH</div>
+      </div>
+    
+      <div class="testimonial" tabindex="0">
+        <p> "From the moment I walked in, I felt welcomed and cared for. My haircut turned out even better than I expected. This place is a hidden gem!</p>
+        <div class="author"> MARIS</div>
+      </div>
+       
+    </section>
+    
+    <section class="about" id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Hair Salon Pro</h2>
+      <p>Founded in 2010, Hair Salon Pro has been delivering premium hair care services with passion and professionalism. Our stylists stay updated with the latest trends and techniques to ensure you always get the best treatment. We use high-quality products that nourish and protect your hair.</p>
+      <p>Whether you want a simple haircut, a complete makeover, or a relaxing hair spa, we provide personalized services tailored to your needs.</p>
+    </section>
+    
+    \
+     
+    
+    <script>
+     
+      const focusableElements = document.querySelectorAll('.service-card, .testimonial, .contact-item');
+      focusableElements.forEach(el => {
+        el.addEventListener('focus', () => el.style.boxShadow = '0 0 12px #4364f7');
+        el.addEventListener('blur', () => el.style.boxShadow = '');
+      });
+      
+       
+      document.querySelector('.btn-primary').addEventListener('click', () => {
+        alert('Thank you for your interest! Contact us to book your appointment.');
+      });
+    </script>
+    
+  </section>
+
+ 
+  <footer style="background-color: #0b1a2b; color: #f0f0f0; padding: 40px 20px; font-family: 'Segoe UI', sans-serif;">
+    <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px;">
+  
+       
+      <div style="flex: 1 1 250px;">
+        <h3 style="color: #ffb700; margin-bottom: 15px;">Contact Info</h3>
+        <p style="line-height: 1.6; font-size: 0.95rem;">
+          📍 1209 MOUNTAIN ROAD PL NE STE 6268<br> ALBUQUERQUE, NM 87110<br><br>
+          📞 +1 214-807-1363<br>
+          ✉️ haircarehub@gmail.com<br>
+          ✉️ haircarehub@gmail.com
+        </p>
+      </div>
+  
+      
+      <div style="flex: 1 1 150px;">
+        <h3 style="color: #ffb700; margin-bottom: 15px;">Information</h3>
+        <ul style="list-style: none; padding: 0; font-size: 0.95rem; line-height: 1.8;">
+          <li><a href="#" style="color: #f0f0f0; text-decoration: none;">Home</a></li>
+          <li><a href="http://127.0.0.1:5500/treatment(2).html" style="color: #f0f0f0; text-decoration: none;">Treatments</a></li>
+          <li><a href="http://127.0.0.1:5500/ramidies(2).html" style="color: #f0f0f0; text-decoration: none;">Remedies</a></li>
+          <li><a href="http://127.0.0.1:5500/Hair%20Care%20Equipments.html" style="color: #f0f0f0; text-decoration: none;">Equipments</a></li>
+          <li><a href="http://127.0.0.1:5500/product(2).html" style="color: #f0f0f0; text-decoration: none;">Products</a></li>
+          <li><a href="http://127.0.0.1:5500/Gairly.html" style="color: #f0f0f0; text-decoration: none;">Gallery</a></li>
+          <li><a href="http://127.0.0.1:5500/latest.html" style="color: #f0f0f0; text-decoration: none;">Latest</a></li>
+        </ul>
+      </div>      
+      <div style="flex: 1 1 250px;">
+        <h3 style="color: #ffb700; margin-bottom: 15px;">Newletter</h3>
+        <p style="font-size: 0.95rem; margin-bottom: 10px;">You can always ask me any question you have.
+        </p>
+        <form style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <input type="email" placeholder="Enter Your Email" style="flex: 1; padding: 10px; border: none; border-radius: 4px;">
+          <button type="submit" style="padding: 10px 20px; background-color: #ffb700; color: #000; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">
+            Send
+          </button>
+        </form>
+      </div>
+    </div>
+  
+
+  </footer>
+  
+  
+
+</body>
+</html>

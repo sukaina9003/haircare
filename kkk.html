@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Place Order — Black & White</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #0b0b0b;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .order-card {
+    background: #fff;
+    color: #111;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    width: 380px;
+    padding: 30px 28px;
+    animation: fadeUp 0.6s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .order-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+    animation: rotateGlow 8s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes rotateGlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+
+  form {
+    position: relative;
+    z-index: 1;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    margin: 10px 0 5px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #000;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  }
+
+  textarea { resize: none; }
+
+  .place-btn {
+    margin-top: 20px;
+    width: 100%;
+    background: #0b0b0b;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .place-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+    background: #111;
+  }
+
+  .success {
+    text-align: center;
+    background: #0b0b0b;
+    color: #fff;
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 14px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="order-card">
+  <h2>Place Your Order</h2>
+  <form id="orderForm">
+    <label>Full Name</label>
+    <input type="text" placeholder="Enter your name" required>
+
+    <label>Email</label>
+    <input type="email" placeholder="Enter your email" required>
+
+    <label>Phone Number</label>
+    <input type="tel" placeholder="03XX-XXXXXXX" required>
+
+    <label>Product Name</label>
+    <input type="text" placeholder="e.g. Rosemary Hair Oil" required>
+
+    <label>Quantity</label>
+    <select required>
+      <option value="">Select</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4+</option>
+    </select>
+
+    <label>Delivery Address</label>
+    <textarea rows="3" placeholder="Enter your full address" required></textarea>
+
+    <button class="place-btn" type="submit">PLACE ORDER</button>
+  </form>
+
+  <div class="success" id="successMsg">
+    ✅ Your order has been placed successfully!
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('orderForm');
+  const msg = document.getElementById('successMsg');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.style.display = 'none';
+    msg.style.display = 'block';
+    setTimeout(() => {
+      msg.textContent = "Redirecting to home...";
+      setTimeout(() => {
+        window.location.href = "index.html"; // redirect after success
+      }, 1200);
+    }, 1800);
+  });
+</script>
+
+</body>
+</html>
